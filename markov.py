@@ -77,7 +77,7 @@ def tweet(long_text):
     access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
 
     # This will print info about credentials to make sure they're correct
-    print api.VerifyCredentials()
+    # print api.VerifyCredentials()
 
     # truncate chains (text version, not dictionary) to be <= 140 char.
     # maybe add: cut off after FULL word (white space before chars 140), 
