@@ -58,20 +58,26 @@ def make_text(chains):
 
     return " ".join(words)
 
+def make_tweet(chains):
+    """Takes dictionary of markov chains; returns tweet-ready random text
+    less than 140 characters."""
+
+    pass
+    
 
 def tweet(long_text):
     """Using previously generated markov string, truncate and post to account."""
     # Use Python os.environ to get at environmental variables
     # Note: you must run `source secrets.sh` before running this file
     # to make sure these environmental variables are set.
-    # api = twitter.Api(
-    # consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
-    # consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
-    # access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
-    # access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
+    api = twitter.Api(
+    consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
+    consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+    access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
+    access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
 
     # This will print info about credentials to make sure they're correct
-    # print api.VerifyCredentials()
+    print api.VerifyCredentials()
 
     # truncate chains (text version, not dictionary) to be <= 140 char.
     # maybe add: cut off after FULL word (white space before chars 140), 
@@ -84,19 +90,17 @@ def tweet(long_text):
     # enter into tweet body (as a variable)
     final_short_text = middle_short_text[0].upper() + middle_short_text[1:]
 
-    print final_short_text
+    # print final_short_text
 
     # Send a tweet
-    # status = api.PostUpdate(final_short_text)
-    # print status.text
+    status = api.PostUpdate(final_short_text)
+    print status.text
 
+if __name__ == "__main__":
 
-
-
-
-def tweet_markovs():
+# def tweet_markovs():
     """
-       Repeat until user presses 'q' to quit.
+       Repeat markov string generation and tweet until user presses 'q' to quit.
     """
 
     filenames = sys.argv[1:]
@@ -116,8 +120,9 @@ def tweet_markovs():
             user_input = raw_input("Enter to tweet again [q to quit] > ")
     
 
+# tweet_markovs()
 
-tweet_markovs()
+
 
 # # Get the filenames from the user through a command line prompt, ex:
 # # python markov.py green-eggs.txt shakespeare.txt
